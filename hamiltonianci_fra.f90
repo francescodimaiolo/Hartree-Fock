@@ -102,15 +102,15 @@ program hamiltonianci
 
 
   vmat=0d0
-  do alpha=1,nsiti
-     do beta=1,nsiti
-        do gamma=1,nsiti
-           do delta=1,nsiti
+  do i=1,nsiti
+     do k=1,nsiti
+        do j=1,nsiti
+           do l=1,nsiti
               
-              do ii=1,nsiti
-                 do jj=1,nsiti
-                    vmat(alpha,beta,gamma,delta) = vmat(alpha,beta,gamma,delta) + &
-                         f(ii,alpha)*f(ii,beta)*f(jj,gamma)*f(jj,delta)*v(ii,jj)
+              do m=1,nsiti
+                 do n=1,nsiti
+                    vmat(i,k,j,l) = vmat(i,k,j,l) + &
+                         f(m,i)*f(m,k)*f(n,j)*f(n,l)*v(m,n)
                  enddo
               enddo
 
@@ -206,11 +206,12 @@ program hamiltonianci
 
                              if((dabs(sz-spin).lt.1d-8) .and. (conta.eq.nexc))then
                                 m = binarysearch(1,dim,config,temp)
-                                if(n.eq.79.and.m.eq.65)&
+                                !if(n.eq.79.and.m.eq.65)&
+                                if(n.eq.79.and.m.eq.79)&
                                 !if((n.eq.85).and.(m.eq.80))&
                                      write(87,'(6i3,f10.5)')n,m,i,j,l,k,((-1d0)**count1)
                                 if(n.ne.m)ham(n,m)=ham(n,m)+&
-                                     0.5d0*((-1d0)**count1)*vmat(alpha,beta,gamma,delta)
+                                     0.5d0*((-1d0)**count1)*vmat(alpha,gamma,beta,delta)
                              endif
                              
                           endif
